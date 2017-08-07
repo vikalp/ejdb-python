@@ -9,7 +9,6 @@ except ImportError:
     use_setuptools()
     from setuptools import setup, Feature
 
-from platform import python_version
 from distutils.command.build_ext import build_ext as _build_ext
 from distutils.core import setup, Extension, Command
 
@@ -21,10 +20,10 @@ from distutils.util import get_platform
 import sys
 import os
 
-py_ver = python_version()
-min_py_vers = {3: "3.2.0", 2: "2.7.2"}
+py_ver = sys.version_info
+min_py_vers = {3: (3,2,0), 2: (2,7,2)}
 
-PY3 = sys.version_info[0] == 3
+PY3 = py_ver[0] == 3
 
 if py_ver < min_py_vers[int(py_ver[0])]:
     raise SystemExit("Aborted: EJDB requires Python >= {0}".format(min_py_vers[int(py_ver[0])]))
